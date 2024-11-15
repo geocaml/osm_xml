@@ -3,9 +3,7 @@ open Core
 
 type osm_id = OSMId of string
 
-module StringMap: Map.S
-
-type osm_tags = string StringMap.t
+type osm_tags = (string, string, String.comparator_witness) Map.t
 
 val empty_tags: osm_tags
 
