@@ -133,7 +133,7 @@ let parse_feature ((OSM osm) as osm')
          (match parse_node xml_input with
           | None -> osm'
           | Some (OSMNode node) ->
-             OSM {nodes=OSMMap.add_exn osm.nodes ~key:node.id ~data:(OSMNode node);
+             OSM {nodes=Map.add_exn osm.nodes ~key:node.id ~data:(OSMNode node);
                   ways=osm.ways;
                   relations=osm.relations})
       | "way" when parse_ways ->
@@ -141,7 +141,7 @@ let parse_feature ((OSM osm) as osm')
           | None -> osm'
           | Some (OSMWay way) ->
              OSM {nodes=osm.nodes;
-                  ways=OSMMap.add_exn osm.ways ~key:way.id ~data:(OSMWay way);
+                  ways=Map.add_exn osm.ways ~key:way.id ~data:(OSMWay way);
                   relations=osm.relations})
       | "relation" when parse_relations ->
          (match parse_relation xml_input with
@@ -149,7 +149,7 @@ let parse_feature ((OSM osm) as osm')
           | Some (OSMRelation relation) ->
              OSM {nodes=osm.nodes;
                   ways=osm.ways;
-                  relations=OSMMap.add_exn osm.relations ~key:relation.id
+                  relations=Map.add_exn osm.relations ~key:relation.id
                                        ~data:(OSMRelation relation)})
       | _ ->
          ignore (Xmlm.input xml_input);

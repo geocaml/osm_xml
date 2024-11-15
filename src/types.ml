@@ -2,11 +2,11 @@ open Core
 
 type osm_id = OSMId of string
 
-module StringMap = Map.Make (String)
+module StringMap = Map
 
-type osm_tags = string StringMap.t
+type osm_tags = (string, string, String.comparator_witness) StringMap.t
 
-let empty_tags = StringMap.empty
+let empty_tags : osm_tags = StringMap.empty (module String)
 
 let add_tag tags key data = StringMap.add_exn tags ~key ~data
 
